@@ -40,6 +40,36 @@ export function RecentGroupListCard({
   const toast = useToast()
   const t = useTranslations('Groups')
 
+  // The three menu actions, out of the JSX. Each writes to local storage and
+  // then asks the list to read it back, since the list holds its own copy.
+  const toggleStarred = () => {
+    if (isStarred) {
+      unstarGroup(group.id)
+    } else {
+      starGroup(group.id)
+      unarchiveGroup(group.id)
+    }
+    refreshGroupsFromStorage()
+  }
+
+  const removeFromRecent = () => {
+    deleteRecentGroup(group)
+    refreshGroupsFromStorage()
+    toast.toast({
+      title: t('RecentRemovedToast.title'),
+      description: t('RecentRemovedToast.description'),
+    })
+  }
+
+  const toggleArchived = () => {
+    if (isArchived) {
+      unarchiveGroup(group.id)
+    } else {
+      archiveGroup(group.id)
+      unstarGroup(group.id)
+    }
+  }
+
   return (
     <li key={group.id}>
       <Button
@@ -66,13 +96,7 @@ export function RecentGroupListCard({
                   className="-my-3 -ml-3 -mr-1.5"
                   onClick={(event) => {
                     event.stopPropagation()
-                    if (isStarred) {
-                      unstarGroup(group.id)
-                    } else {
-                      starGroup(group.id)
-                      unarchiveGroup(group.id)
-                    }
-                    refreshGroupsFromStorage()
+                    toggleStarred()
                   }}
                 >
                   {isStarred ? (
@@ -96,13 +120,7 @@ export function RecentGroupListCard({
                       className="text-destructive"
                       onClick={(event) => {
                         event.stopPropagation()
-                        deleteRecentGroup(group)
-                        refreshGroupsFromStorage()
-
-                        toast.toast({
-                          title: t('RecentRemovedToast.title'),
-                          description: t('RecentRemovedToast.description'),
-                        })
+                        removeFromRecent()
                       }}
                     >
                       {t('removeRecent')}
@@ -110,13 +128,7 @@ export function RecentGroupListCard({
                     <DropdownMenuItem
                       onClick={(event) => {
                         event.stopPropagation()
-                        if (isArchived) {
-                          unarchiveGroup(group.id)
-                        } else {
-                          archiveGroup(group.id)
-                          unstarGroup(group.id)
-                        }
-                        refreshGroupsFromStorage()
+                        toggleArchived()
                       }}
                     >
                       {t(isArchived ? 'unarchive' : 'archive')}
