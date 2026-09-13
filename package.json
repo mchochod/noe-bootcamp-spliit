@@ -8,13 +8,16 @@
   },
   "scripts": {
     "dev": "next dev",
+    "db": "node scripts/dev-db.mjs",
+    "db:migrate": "prisma migrate deploy",
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
     "check-types": "tsc --noEmit",
     "check-formatting": "prettier -c src e2e perf playwright.config.ts",
     "prettier": "prettier -w src e2e perf playwright.config.ts",
-    "postinstall": "prisma migrate deploy && prisma generate",
+    "prebuild": "prisma migrate deploy",
+    "postinstall": "prisma generate",
     "build-image": "./scripts/build-image.sh",
     "start-container": "docker compose --env-file container.env up",
     "test": "jest",
@@ -92,6 +95,8 @@
     "zod": "^4"
   },
   "devDependencies": {
+    "@electric-sql/pglite": "^0.5.8",
+    "@electric-sql/pglite-socket": "^0.2.11",
     "@playwright/test": "^1.63.0",
     "@tailwindcss/postcss": "^4.3.2",
     "@testing-library/dom": "^10.4.1",

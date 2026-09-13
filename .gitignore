@@ -51,3 +51,11 @@ postgres-data
 
 # performance suite output (perf/run.ts)
 /perf-report.json
+
+# local dev database (PGlite)
+pglite-data
+
+# agent context files: participants write their own, and `next dev` regenerates
+# AGENTS.md on every run
+CLAUDE.md
+AGENTS.md
