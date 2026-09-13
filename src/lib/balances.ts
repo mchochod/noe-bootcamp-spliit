@@ -53,7 +53,7 @@ export function getBalances(
     balances[participantId].paid = Math.round(balances[participantId].paid) + 0
 
     balances[participantId].total =
-      balances[participantId].paid - balances[participantId].paidFor
+      balances[participantId].paidFor - balances[participantId].paid
   }
   return balances
 }
