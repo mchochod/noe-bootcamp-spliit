@@ -151,9 +151,9 @@ a "Today" section and a populated last month:
 
 | Group | | |
 |---|---|---|
-| **Alice & Bob** ★ | a couple, eighteen months of history | open |
-| **Coloc Oberkampf** | a year of flatsharing, ended when they moved in together | settled to zero |
-| **Londres entre amis** | six people, four days, five months ago | settled to zero |
+| **Alice & Bob** ★ | a couple, eighteen months of history | open, starred |
+| **Coloc Oberkampf** | a year of flatsharing, ended when they moved in together | settled, archived |
+| **Londres entre amis** | six people, four days, five months ago | settled, archived |
 | **Copenhague** | five people, three months ago | open, nobody has paid anyone back |
 | **YC Combinator Summer26** | a month in San Francisco, **in dollars** | open |
 | **Week-end à Étretat** | five friends, one weekend, two weeks ago | open |
@@ -161,7 +161,12 @@ a "Today" section and a populated last month:
 Alice is in all six, so the balances and the "your share" figures tell one story: she is
 owed a little over a thousand euros across the open groups, and owes a few hundred
 dollars from San Francisco. The two settled groups are the contrast — they show what
-"nothing left to reimburse" looks like.
+"nothing left to reimburse" looks like, and they start out archived, so the list opens
+on the groups that still need attention.
+
+Starring and archiving live in the browser, not in the database — Spliit has no accounts,
+so there is nobody to attach a preference to server-side. That is why `/demo` and the
+button set them, and `npm run db:seed` cannot.
 
 ### Starting over
 
