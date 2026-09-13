@@ -1,3 +1,9 @@
+# Normalise every text file to LF in the working tree, on every OS. Without
+# this, Git checks out CRLF on Windows, `prettier -c` fails on files nobody
+# touched, and that is a required check on every pull request. This wins over a
+# contributor's core.autocrlf, so it needs no action from them.
+* text=auto eol=lf
+
 # Force LF line endings on environment files. A CRLF .env makes every value end
 # in a stray carriage return, which used to disable feature flags silently and
 # break credentials. The parser now trims, but keeping these files LF-only stops

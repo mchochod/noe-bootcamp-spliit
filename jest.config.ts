@@ -38,6 +38,11 @@ const jestConfig = async (): Promise<Config> => {
         displayName: 'Pacific/Auckland',
         testEnvironmentOptions: { tz: 'Pacific/Auckland' },
       },
+      {
+        ...project,
+        displayName: 'Europe/Paris',
+        testEnvironmentOptions: { tz: 'Europe/Paris' },
+      },
     ],
   }
 }

@@ -10,22 +10,13 @@ on:
   # point on the trend chart published to GitHub Pages.
   push:
     tags: ['*']
-  schedule:
-    # Mondays, 05:00 UTC.
-    - cron: '0 5 * * 1'
-  pull_request:
-    branches: ['main']
-    paths:
-      - 'src/lib/api.ts'
-      - 'src/lib/balances.ts'
-      - 'src/lib/totals.ts'
-      - 'src/lib/prisma.ts'
-      - 'src/trpc/**'
-      - 'prisma/**'
-      - 'perf/**'
-      - 'compose.perf.yaml'
-      - 'scripts/perf.sh'
-      - '.github/workflows/perf.yml'
+  # The weekly schedule is off too: it publishes a trend chart to a gh-pages
+  # branch, and this fork keeps the branch list down to what participants create.
+  # The pull_request trigger is deliberately off in this teaching fork: its
+  # path filter covered src/lib/totals.ts, src/trpc/** and prisma/**, which is
+  # exactly where the bootcamp exercises land. It pulled 30 minutes of Docker
+  # onto participants' pull requests and could fail them on a perf budget.
+  # Run it by hand with workflow_dispatch when the query cost matters.
 
 concurrency:
   group: perf-${{ github.ref }}

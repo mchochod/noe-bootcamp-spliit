@@ -92,8 +92,17 @@ You need **two terminals**, both in the repository folder.
    `127.0.0.1:5432` over the real PostgreSQL wire protocol. No server to install, no
    container. Data is persisted in `./pglite-data`, which is git-ignored — delete that
    folder to start from a clean database.
-   If port 5432 is already taken on your machine, run `DEV_DB_PORT=5499 npm run db` and
-   set the matching port in your `.env`.
+   If port 5432 is already taken on your machine, pick another one:
+
+   ```bash
+   DEV_DB_PORT=5499 npm run db          # macOS / Linux
+   ```
+   ```powershell
+   $env:DEV_DB_PORT=5499; npm run db    # Windows PowerShell
+   ```
+
+   Then set the same port in `.env`, on **both** `POSTGRES_PRISMA_URL` and
+   `POSTGRES_URL_NON_POOLING` (e.g. `postgresql://postgres:1234@localhost:5499`).
 5. *Terminal 2* — run `npm run db:migrate` to apply the database migrations
 6. *Terminal 2* — run `npm run dev` to start the development server
 
@@ -231,7 +240,7 @@ Set `DEFAULT_CURRENCY_CODE` to pre-select a currency on the new-group form.
 DEFAULT_CURRENCY_CODE=EUR
 ```
 
-Defaults to `USD`.
+Upstream defaults to `USD`; this teaching fork ships `EUR` in `.env.example`.
 
 ### Migrating from the `NEXT_PUBLIC_*` variables
 
