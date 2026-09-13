@@ -108,8 +108,18 @@ You need **two terminals**, both in the repository folder.
    around the same person, in euros and dollars, spanning eighteen months
 7. *Terminal 2* — run `npm run dev` to start the development server
 
-Open http://localhost:3000, pick a group, and say you are **Alice** when asked — she
-is in all four groups.
+Then open the four demo groups once each — the "My groups" list lives in your
+browser, not in the database, so it stays empty until you have visited them:
+
+| Group | URL |
+|---|---|
+| Alice & Bob — a couple, eighteen months, still open | http://localhost:3000/groups/demo-couple |
+| Coloc Oberkampf — a flatshare, closed and settled | http://localhost:3000/groups/demo-coloc |
+| YC Combinator Summer26 — a month in San Francisco, **in dollars** | http://localhost:3000/groups/demo-yc |
+| Week-end à Étretat — five friends, one weekend | http://localhost:3000/groups/demo-etretat |
+
+Say you are **Alice** when a group asks — she is in all four, so the balances and the
+"your share" figures tell one story.
 
 ### Starting over
 
