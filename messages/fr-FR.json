@@ -85,13 +85,6 @@
       "owedToYou": "On vous doit",
       "youOwe": "Vous devez",
       "settled": "Soldé"
-    },
-    "GlobalBalance": {
-      "title": "Votre solde total",
-      "description": "Votre solde cumulé sur l’ensemble de vos groupes.",
-      "owedToYou": "On vous doit",
-      "youOwe": "Vous devez",
-      "settledUp": "Tous vos groupes sont soldés."
     }
   },
   "GroupForm": {
