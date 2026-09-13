@@ -1,3 +1,21 @@
+> ## Pedagogical fork — Noé bootcamp
+>
+> This is a **teaching fork** of [Spliit](https://github.com/spliit-app/spliit) by
+> [Sebastien Castiel](https://github.com/scastiel), used as the demo codebase for a
+> two-day *Claude Code for PMs* bootcamp run with [Noé](https://noe.co) (17–18 September 2026).
+>
+> It exists so participants have a real, non-trivial codebase to read, debug and ship to.
+> Some bugs in this fork are **deliberately planted** as exercises, and the local setup is
+> adapted for a classroom (no Docker required — see [Run locally](#run-locally)).
+>
+> **Do not deploy this fork.** If you want to use or self-host Spliit, go to the
+> [upstream project](https://github.com/spliit-app/spliit) or the official instance at
+> [spliit.app](https://spliit.app) — and consider
+> [supporting it](https://opencollective.com/spliit).
+>
+> Original work © 2023 Sebastien Castiel, MIT licensed. Bootcamp changes © 2026 Martin Chochod,
+> same licence. See [License](#license).
+
 [<img alt="Spliit" height="60" src="https://github.com/spliit-app/spliit/blob/main/public/logo-with-text.png?raw=true" />](https://spliit.app)
 
 Spliit is a free and open source alternative to Splitwise. You can either use the official instance at [Spliit.app](https://spliit.app), or deploy your own instance:
@@ -62,11 +80,31 @@ Here is the current state of translation:
 
 ## Run locally
 
-1. Clone the repository (or fork it if you intend to contribute)
-2. Start a PostgreSQL server. You can run `./scripts/start-local-db.sh` if you don’t have a server already.
-3. Copy the file `.env.example` as `.env`
-4. Run `npm install` to install dependencies. This will also apply database migrations and update Prisma Client.
-5. Run `npm run dev` to start the development server
+**Requirements: Node ≥ 24 and npm ≥ 11 (npm ships with Node 24), plus git. No Docker.**
+
+You need **two terminals**, both in the repository folder.
+
+1. Clone the repository
+2. Copy the file `.env.example` as `.env`
+3. Run `npm install` to install dependencies and generate Prisma Client
+4. *Terminal 1* — run `npm run db` to start the local database, and leave it running.
+   This is [PGlite](https://pglite.dev), PostgreSQL compiled to WebAssembly, served on
+   `127.0.0.1:5432` over the real PostgreSQL wire protocol. No server to install, no
+   container. Data is persisted in `./pglite-data`, which is git-ignored — delete that
+   folder to start from a clean database.
+   If port 5432 is already taken on your machine, run `DEV_DB_PORT=5499 npm run db` and
+   set the matching port in your `.env`.
+5. *Terminal 2* — run `npm run db:migrate` to apply the database migrations
+6. *Terminal 2* — run `npm run dev` to start the development server
+
+> **Do not run `prisma migrate dev` against this database** — it needs a shadow database
+> that PGlite cannot provide, fails with `P1017`, and the usual suggested fix
+> (`prisma migrate reset`) wipes your data. Use `npm run db:migrate`
+> (`prisma migrate deploy`) instead. To author a *new* migration, generate it with
+> `prisma migrate diff` and apply it with `migrate deploy`.
+
+Upstream uses a Docker-based Postgres (`./scripts/start-local-db.sh`), which still works
+if you prefer it.
 
 ## End-to-end tests
 
@@ -337,3 +375,8 @@ A provider supplies a transport — where events go — and optionally a `Script
 ## License
 
 MIT, see [LICENSE](./LICENSE).
+
+Spliit is © 2023 Sebastien Castiel. This fork keeps the original licence and copyright
+notice unchanged; the bootcamp-specific changes are © 2026 Martin Chochod and are released
+under the same MIT terms. Nothing here is endorsed by or affiliated with the upstream
+project or its author.
