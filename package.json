@@ -23,6 +23,7 @@
     "build-image": "./scripts/build-image.sh",
     "start-container": "docker compose --env-file container.env up",
     "test": "jest",
+    "verify": "npm test && npm run check-types && npm run check-formatting && eslint . --quiet",
     "e2e": "./scripts/e2e.sh",
     "e2e:up": "./scripts/e2e.sh up",
     "e2e:down": "./scripts/e2e.sh down",
