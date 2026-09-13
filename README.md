@@ -146,20 +146,26 @@ opened those groups still shows nothing — including the browser your AI assist
 drives. `/demo` and the button both register the groups locally and sign you in as
 Alice; the terminal command cannot, so after it you still need `/demo` or the button.
 
-You get four groups:
+You get six groups, all dated relative to the day you seed, so the app always opens on
+a "Today" section and a populated last month:
 
-| Group | |
-|---|---|
-| **Alice & Bob** ★ | a couple, eighteen months of history, still open |
-| **Coloc Oberkampf** | a flatshare, closed in March 2026 and settled to zero |
-| **YC Combinator Summer26** | a month in San Francisco, **in dollars** |
-| **Week-end à Étretat** | five friends, one weekend, uneven participation |
+| Group | | |
+|---|---|---|
+| **Alice & Bob** ★ | a couple, eighteen months of history | open |
+| **Coloc Oberkampf** | a year of flatsharing, ended when they moved in together | settled to zero |
+| **Londres entre amis** | six people, four days, five months ago | settled to zero |
+| **Copenhague** | five people, three months ago | open, nobody has paid anyone back |
+| **YC Combinator Summer26** | a month in San Francisco, **in dollars** | open |
+| **Week-end à Étretat** | five friends, one weekend, two weeks ago | open |
 
-Alice is in all four, so the balances and the "your share" figures tell one story.
+Alice is in all six, so the balances and the "your share" figures tell one story: she is
+owed a little over a thousand euros across the open groups, and owes a few hundred
+dollars from San Francisco. The two settled groups are the contrast — they show what
+"nothing left to reimburse" looks like.
 
 ### Starting over
 
-Seeding is idempotent, by whichever route: it replaces the four demo groups and leaves
+Seeding is idempotent, by whichever route: it replaces the six demo groups and leaves
 any group you created yourself alone. Re-run it whenever the demo data drifts.
 
 `/demo` and the button go through an unauthenticated endpoint that recreates groups, so
