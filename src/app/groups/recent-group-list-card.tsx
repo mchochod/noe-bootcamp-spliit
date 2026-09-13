@@ -15,7 +15,6 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { Skeleton } from '@/components/ui/skeleton'
 import { useToast } from '@/components/ui/use-toast'
-import { cn, formatCurrency, getCurrencyFromGroup } from '@/lib/utils'
 import { AppRouterOutput } from '@/trpc/routers/_app'
 import { StarFilledIcon } from '@radix-ui/react-icons'
 import { Calendar, MoreHorizontal, Star, Users } from 'lucide-react'
@@ -26,14 +25,12 @@ import { useRouter } from 'next/navigation'
 export function RecentGroupListCard({
   group,
   groupDetail,
-  balance,
   isStarred,
   isArchived,
   refreshGroupsFromStorage,
 }: {
   group: RecentGroup
   groupDetail?: AppRouterOutput['groups']['list']['groups'][number]
-  balance?: AppRouterOutput['groups']['balances']['forUser']['balances'][number]
   isStarred: boolean
   isArchived: boolean
   refreshGroupsFromStorage: () => void
@@ -146,31 +143,6 @@ export function RecentGroupListCard({
                       )}
                     </span>
                   </div>
-                </div>
-              ) : null}
-              {balance ? (
-                <div className="w-full flex items-baseline justify-between mt-1">
-                  <span>
-                    {balance.amount === 0
-                      ? t('Card.settled')
-                      : balance.amount > 0
-                        ? t('Card.owedToYou')
-                        : t('Card.youOwe')}
-                  </span>
-                  {balance.amount !== 0 && (
-                    <span
-                      className={cn(
-                        'font-semibold tabular-nums',
-                        balance.amount > 0 ? 'text-green-600' : 'text-red-600',
-                      )}
-                    >
-                      {formatCurrency(
-                        getCurrencyFromGroup(balance),
-                        Math.abs(balance.amount),
-                        locale,
-                      )}
-                    </span>
-                  )}
                 </div>
               ) : (
                 <div className="flex justify-between">

@@ -76,11 +76,6 @@
     "NotFound": {
       "text": "این گروه وجود ندارد.",
       "link": "مشاهده گروه‌های اخیر"
-    },
-    "Card": {
-      "owedToYou": "Owed to you",
-      "youOwe": "You owe",
-      "settled": "Settled up"
     }
   },
   "GroupForm": {

@@ -75,11 +75,6 @@
     "NotFound": {
       "text": "Aqueste grop existís pas.",
       "link": "Anar als darrièrs grops consultats"
-    },
-    "Card": {
-      "owedToYou": "Owed to you",
-      "youOwe": "You owe",
-      "settled": "Settled up"
     }
   },
   "GroupForm": {

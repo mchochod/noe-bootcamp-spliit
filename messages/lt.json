@@ -80,11 +80,6 @@
     "NotFound": {
       "text": "Šios grupės nėra.",
       "link": "Eikite į paskiausiai aplankytas grupes"
-    },
-    "Card": {
-      "owedToYou": "Owed to you",
-      "youOwe": "You owe",
-      "settled": "Settled up"
     }
   },
   "GroupForm": {

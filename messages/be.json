@@ -41,11 +41,6 @@
     },
     "NotFound": {
       "text": "Такой групы не існуе."
-    },
-    "Card": {
-      "owedToYou": "Owed to you",
-      "youOwe": "You owe",
-      "settled": "Settled up"
     }
   },
   "GroupForm": {

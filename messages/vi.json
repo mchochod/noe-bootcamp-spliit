@@ -80,11 +80,6 @@
     "NotFound": {
       "text": "Nhóm này không tồn tại.",
       "link": "Xem các nhóm bạn đã truy cập gần đây"
-    },
-    "Card": {
-      "owedToYou": "Owed to you",
-      "youOwe": "You owe",
-      "settled": "Settled up"
     }
   },
   "GroupForm": {

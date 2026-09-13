@@ -109,30 +109,6 @@ function RecentGroupList_({
     groupIds: groups.map((group) => group.id),
   })
 
-  // Who the visitor is in each group lives in local storage, so it can only be
-  // read on the client. Same input as GlobalBalanceCard builds, so React Query
-  // serves both from one request rather than asking twice.
-  const [activeUserGroups, setActiveUserGroups] = useState<
-    { groupId: string; participantId: string }[] | null
-  >(null)
-  useEffect(() => {
-    setActiveUserGroups(
-      groups.flatMap((group) => {
-        const participantId = localStorage.getItem(`${group.id}-activeUser`)
-        if (!participantId || participantId === 'None') return []
-        return [{ groupId: group.id, participantId }]
-      }),
-    )
-  }, [groups])
-
-  const { data: balanceData } = trpc.groups.balances.forUser.useQuery(
-    { groups: activeUserGroups ?? [] },
-    { enabled: (activeUserGroups?.length ?? 0) > 0 },
-  )
-  const balances = new Map(
-    (balanceData?.balances ?? []).map((balance) => [balance.groupId, balance]),
-  )
-
   if (isLoading || !data) {
     return (
       <GroupsPage reload={refreshGroupsFromStorage}>
@@ -177,7 +153,6 @@ function RecentGroupList_({
           <GroupList
             groups={starredGroupInfo}
             groupDetails={data.groups}
-            balances={balances}
             archivedGroups={archivedGroups}
             starredGroups={starredGroups}
             refreshGroupsFromStorage={refreshGroupsFromStorage}
@@ -191,7 +166,6 @@ function RecentGroupList_({
           <GroupList
             groups={groupInfo}
             groupDetails={data.groups}
-            balances={balances}
             archivedGroups={archivedGroups}
             starredGroups={starredGroups}
             refreshGroupsFromStorage={refreshGroupsFromStorage}
@@ -206,7 +180,6 @@ function RecentGroupList_({
             <GroupList
               groups={archivedGroupInfo}
               groupDetails={data.groups}
-              balances={balances}
               archivedGroups={archivedGroups}
               starredGroups={starredGroups}
               refreshGroupsFromStorage={refreshGroupsFromStorage}
@@ -259,17 +232,12 @@ function DemoGroupsButton({ onLoaded }: { onLoaded: () => void }) {
 function GroupList({
   groups,
   groupDetails,
-  balances,
   starredGroups,
   archivedGroups,
   refreshGroupsFromStorage,
 }: {
   groups: RecentGroups
   groupDetails?: AppRouterOutput['groups']['list']['groups']
-  balances: Map<
-    string,
-    AppRouterOutput['groups']['balances']['forUser']['balances'][number]
-  >
   starredGroups: string[]
   archivedGroups: string[]
   refreshGroupsFromStorage: () => void
@@ -283,7 +251,6 @@ function GroupList({
           groupDetail={groupDetails?.find(
             (groupDetail) => groupDetail.id === group.id,
           )}
-          balance={balances.get(group.id)}
           isStarred={starredGroups.includes(group.id)}
           isArchived={archivedGroups.includes(group.id)}
           refreshGroupsFromStorage={refreshGroupsFromStorage}

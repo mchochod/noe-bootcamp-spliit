@@ -80,11 +80,6 @@
     "NotFound": {
       "text": "Αυτή η ομάδα δεν υπάρχει.",
       "link": "Πήγαινε στις πρόσφατες επισκεπτόμενες ομάδες"
-    },
-    "Card": {
-      "owedToYou": "Owed to you",
-      "youOwe": "You owe",
-      "settled": "Settled up"
     }
   },
   "GroupForm": {

@@ -80,11 +80,6 @@
     "NotFound": {
       "text": "このグループは存在しません。",
       "link": "最近訪れたグループへ移動"
-    },
-    "Card": {
-      "owedToYou": "Owed to you",
-      "youOwe": "You owe",
-      "settled": "Settled up"
     }
   },
   "GroupForm": {

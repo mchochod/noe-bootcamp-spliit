@@ -80,11 +80,6 @@
     "NotFound": {
       "text": "Seda gruppi ei ole olemas.",
       "link": "Mine hiljuti külastatud gruppidesse"
-    },
-    "Card": {
-      "owedToYou": "Owed to you",
-      "youOwe": "You owe",
-      "settled": "Settled up"
     }
   },
   "GroupForm": {

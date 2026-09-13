@@ -80,11 +80,6 @@
     "NotFound": {
       "text": "Bu grup mevcut değil.",
       "link": "Son ziyaret ettiğiniz gruplara dön"
-    },
-    "Card": {
-      "owedToYou": "Owed to you",
-      "youOwe": "You owe",
-      "settled": "Settled up"
     }
   },
   "GroupForm": {

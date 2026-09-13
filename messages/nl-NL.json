@@ -80,11 +80,6 @@
     "NotFound": {
       "text": "Deze groep bestaat niet.",
       "link": "Ga naar je recente groepen"
-    },
-    "Card": {
-      "owedToYou": "Owed to you",
-      "youOwe": "You owe",
-      "settled": "Settled up"
     }
   },
   "GroupForm": {

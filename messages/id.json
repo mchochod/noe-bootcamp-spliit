@@ -80,11 +80,6 @@
     "NotFound": {
       "text": "Grup ini tidak dapat ditemukan.",
       "link": "Buka grup yang baru saja dikunjungi"
-    },
-    "Card": {
-      "owedToYou": "Owed to you",
-      "youOwe": "You owe",
-      "settled": "Settled up"
     }
   },
   "GroupForm": {

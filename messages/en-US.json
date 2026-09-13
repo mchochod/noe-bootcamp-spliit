@@ -106,11 +106,6 @@
     "NotFound": {
       "text": "This group does not exist.",
       "link": "Go to recently visited groups"
-    },
-    "Card": {
-      "owedToYou": "Owed to you",
-      "youOwe": "You owe",
-      "settled": "Settled up"
     }
   },
   "GroupForm": {

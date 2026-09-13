@@ -80,11 +80,6 @@
     "NotFound": {
       "text": "Aquest grup no existeix.",
       "link": "Ves als grups visitats recentment"
-    },
-    "Card": {
-      "owedToYou": "Owed to you",
-      "youOwe": "You owe",
-      "settled": "Settled up"
     }
   },
   "GroupForm": {
