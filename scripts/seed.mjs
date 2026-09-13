@@ -47,6 +47,7 @@ const CAT = {
   services: 19,
   clothing: 21,
   gifts: 23,
+  insurance: 24,
   medical: 25,
   transportation: 27,
   train: 29,
@@ -247,6 +248,11 @@ const couple = {
       notes: 'Étagères, lampes, vaisselle. Ticket dans le tiroir si besoin de rapporter.',
     }),
     E('2026-04-19', 'Courses Monoprix', 112.4, 'alice', 'all', CAT.groceries),
+    E('2026-04-15', 'Assurance habitation MAIF', 264.0, 'bob', 'all', CAT.insurance, {
+      split: 'BY_PERCENTAGE',
+      shares: { alice: 6000, bob: 4000 },
+      notes: 'Prime annuelle, prélevée sur le compte de Bob.',
+    }),
     E('2026-04-28', 'Internet Orange', 44.99, 'bob', 'all', CAT.internet, {
       recurring: 'MONTHLY',
     }),
@@ -387,6 +393,19 @@ const etretat = {
   ],
 }
 
+// Alice holds the lease and pays the landlord every month; Bob covers the
+// utilities and insurance and sends her a standing order for the difference.
+// Without these transfers the couple's balance drifts to several thousand
+// euros, which is not what a shared account looks like after six months.
+couple.expenses.push(
+  ...['2026-04-05', '2026-05-05', '2026-06-05', '2026-07-06', '2026-08-05', '2026-09-04'].map(
+    (date) =>
+      E(date, 'Virement mensuel Bob → Alice', 680, 'bob', ['alice'], CAT.payment, {
+        reimbursement: true,
+      }),
+  ),
+)
+
 const GROUPS = [coloc, couple, yc, etretat]
 
 // ---------------------------------------------------------------------------
@@ -496,7 +515,12 @@ async function main() {
     }
 
     console.log(`\nSeeded ${GROUPS.length} groups, ${total} expenses.`)
-    console.log('Open http://localhost:3000 and pick a group; say you are Alice.')
+    console.log(
+      'Now open http://localhost:3000/demo once — the group list lives in the',
+    )
+    console.log(
+      'browser, so that page adds the four groups to it and signs you in as Alice.',
+    )
   } finally {
     await client.end()
   }
