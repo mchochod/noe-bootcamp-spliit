@@ -140,8 +140,32 @@ if you prefer it.
 
 ## Tests
 
-`npm test` runs the unit suite. It needs nothing beyond the dependencies, and it is
-what CI runs on every pull request.
+`npm run verify` runs the four checks that gate a pull request — tests, TypeScript,
+Prettier, ESLint — in one command:
+
+```bash
+npm run verify
+```
+
+Run it before you push. It needs nothing beyond the dependencies: no database, no
+Docker, no account. That makes it a faithful local replica of CI, so a green `verify`
+means a green pull request, and you find out in seconds instead of minutes.
+
+The checks run tests first, so a real failure is not hidden behind a formatting one.
+Each is also available on its own:
+
+| Command | What it checks | If it fails |
+| --- | --- | --- |
+| `npm test` | the unit suite, in three timezones | a behaviour changed — read the failing test |
+| `npm run check-types` | `tsc --noEmit` | the types do not line up |
+| `npm run check-formatting` | Prettier | `npm run prettier` fixes every one of these |
+| `npm run lint` | ESLint | warnings are tolerated, errors are not |
+
+`verify` runs ESLint with `--quiet`, which gates on errors exactly like CI does but
+keeps the inherited warnings out of the way. `npm run lint` still shows them.
+
+`npx jest --watch` reruns the suite on every save — the fastest way to work a failing
+test back to green.
 
 `npm run e2e` drives the built container with Playwright, so it needs Docker and a
 free port; it is not part of the normal loop. See
