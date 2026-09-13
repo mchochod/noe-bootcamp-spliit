@@ -80,6 +80,11 @@
     "NotFound": {
       "text": "该群组不存在。",
       "link": "跳转到最近访问过的群组"
+    },
+    "Card": {
+      "owedToYou": "Owed to you",
+      "youOwe": "You owe",
+      "settled": "Settled up"
     }
   },
   "GroupForm": {

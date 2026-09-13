@@ -80,6 +80,11 @@
     "NotFound": {
       "text": "Этой группы не существует.",
       "link": "Перейти к списку недавних групп"
+    },
+    "Card": {
+      "owedToYou": "Owed to you",
+      "youOwe": "You owe",
+      "settled": "Settled up"
     }
   },
   "GroupForm": {

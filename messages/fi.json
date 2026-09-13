@@ -77,6 +77,11 @@
     "NotFound": {
       "text": "Tätä ryhmää ei löydy.",
       "link": "Siirry äskettäisiin ryhmiin"
+    },
+    "Card": {
+      "owedToYou": "Owed to you",
+      "youOwe": "You owe",
+      "settled": "Settled up"
     }
   },
   "GroupForm": {

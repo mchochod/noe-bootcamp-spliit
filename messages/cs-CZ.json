@@ -78,6 +78,11 @@
     "NotFound": {
       "text": "Tato skupina neexistuje.",
       "link": "Přejít na nedávno navštívené skupiny"
+    },
+    "Card": {
+      "owedToYou": "Owed to you",
+      "youOwe": "You owe",
+      "settled": "Settled up"
     }
   },
   "GroupForm": {

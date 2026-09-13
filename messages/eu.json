@@ -80,6 +80,11 @@
     "NotFound": {
       "text": "Talde hori ez da existitzen.",
       "link": "Joan bisitatutako azken taldeetara"
+    },
+    "Card": {
+      "owedToYou": "Owed to you",
+      "youOwe": "You owe",
+      "settled": "Settled up"
     }
   },
   "GroupForm": {

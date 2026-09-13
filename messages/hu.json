@@ -80,6 +80,11 @@
     "NotFound": {
       "text": "Ez a csoport nem létezik.",
       "link": "Irány a legutóbb megtekintett csoportok"
+    },
+    "Card": {
+      "owedToYou": "Owed to you",
+      "youOwe": "You owe",
+      "settled": "Settled up"
     }
   },
   "GroupForm": {

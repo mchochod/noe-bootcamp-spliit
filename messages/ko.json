@@ -57,7 +57,12 @@
       "link": "최근에 방문한 그룹 보기"
     },
     "unarchive": "그룹 다시 불러오기",
-    "removeRecent": "최근 그룹 목록에서 삭제하기"
+    "removeRecent": "최근 그룹 목록에서 삭제하기",
+    "Card": {
+      "owedToYou": "Owed to you",
+      "youOwe": "You owe",
+      "settled": "Settled up"
+    }
   },
   "GroupForm": {
     "title": "그룹 정보",

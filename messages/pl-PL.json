@@ -78,6 +78,11 @@
     "NotFound": {
       "text": "Ta grupa nie istnieje.",
       "link": "Idź do ostatnio odwiedzanych grup"
+    },
+    "Card": {
+      "owedToYou": "Owed to you",
+      "youOwe": "You owe",
+      "settled": "Settled up"
     }
   },
   "GroupForm": {

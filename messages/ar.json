@@ -80,6 +80,11 @@
     "NotFound": {
       "text": "هذه المجموعة غير موجودة.",
       "link": "الذهاب إلى المجموعات التي زرتها مؤخرًا"
+    },
+    "Card": {
+      "owedToYou": "Owed to you",
+      "youOwe": "You owe",
+      "settled": "Settled up"
     }
   },
   "GroupForm": {

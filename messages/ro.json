@@ -77,6 +77,11 @@
     "NotFound": {
       "text": "Acest grup nu există.",
       "link": "Mergi la ultimele grupuri vizitate"
+    },
+    "Card": {
+      "owedToYou": "Owed to you",
+      "youOwe": "You owe",
+      "settled": "Settled up"
     }
   },
   "GroupForm": {
