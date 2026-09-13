@@ -80,7 +80,32 @@ Here is the current state of translation:
 
 ## Run locally
 
-**Requirements: Node ≥ 24 and npm ≥ 11 (npm ships with Node 24), plus git. No Docker.**
+### What your machine needs
+
+| | |
+|---|---|
+| **Node.js ≥ 24** | `package.json` declares it, and it is a hard requirement |
+| **npm ≥ 11** | ships with Node 24, nothing extra to install |
+| **git** | any recent version |
+| **A code editor** | anything; nothing in this repo assumes one |
+
+npm only — the repository has a `package-lock.json` and no pnpm or yarn lockfile.
+**No Docker, no PostgreSQL, no account anywhere**: the local database runs inside Node
+(see below), and every feature that needs a third-party key is off by default.
+
+Check the three in one command, identical on macOS, Linux and Windows PowerShell:
+
+```
+node -e "const cp=require('child_process'),v=s=>+s.split('.')[0],n=v(process.versions.node),m=v(cp.execSync('npm -v').toString().trim());let g='';try{g=cp.execSync('git --version').toString().trim()}catch{g='ABSENT'};console.log('node '+process.version+' -> '+(n>=24?'OK':'KO (need >=24)'));console.log('npm  '+cp.execSync('npm -v').toString().trim()+' -> '+(m>=11?'OK':'KO (need >=11)'));console.log(g+' -> '+(g==='ABSENT'?'KO':'OK'))"
+```
+
+Three `OK` and you are ready. Anything else, install [Node 24 LTS](https://nodejs.org)
+first — it brings npm with it.
+
+On **Windows**, clone into a short path such as `C:\dev\` rather than `Documents` or a
+OneDrive folder: the sync client locks the database files while they are in use.
+
+### Running it
 
 You need **two terminals**, both in the repository folder.
 
@@ -136,6 +161,12 @@ Alice is in all four, so the balances and the "your share" figures tell one stor
 
 Seeding is idempotent, by whichever route: it replaces the four demo groups and leaves
 any group you created yourself alone. Re-run it whenever the demo data drifts.
+
+`/demo` and the button go through an unauthenticated endpoint that recreates groups, so
+they are enabled in development and disabled in a production build. Set
+`ENABLE_DEMO_SEED=true` to turn them back on — that is how you load the sample data into
+a real deployment to test it under real conditions. `npm run db:seed` is unaffected: it
+never goes through the app.
 
 `npm run db:reset` is the bigger hammer — it deletes **every** group, yours included,
 then re-seeds. Both work with the database running, so you never have to stop
