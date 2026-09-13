@@ -129,14 +129,44 @@ then re-seeds. Both work with the database running, so you never have to stop
 If the database itself is broken rather than the data, stop `npm run db`, delete the
 `pglite-data` folder, then run `npm run db:migrate` and `npm run db:seed` again.
 
-> **Do not run `prisma migrate dev` against this database** — it needs a shadow database
-> that PGlite cannot provide, fails with `P1017`, and the usual suggested fix
-> (`prisma migrate reset`) wipes your data. Use `npm run db:migrate`
-> (`prisma migrate deploy`) instead. To author a *new* migration, generate it with
-> `prisma migrate diff` and apply it with `migrate deploy`.
-
 Upstream uses a Docker-based Postgres (`./scripts/start-local-db.sh`), which still works
 if you prefer it.
+
+### Changing the database schema
+
+⛔ **Never run `prisma migrate dev` or `prisma migrate reset` here.** `migrate dev` fails,
+and the fix it suggests destroys your data. Read this before touching
+`prisma/schema.prisma`.
+
+A migration is a change to the *shape* of the database — a new column, a new value in an
+enum — saved as a SQL file under `prisma/migrations/`. Those files, in order, are the
+database's whole history.
+
+`prisma migrate dev` does not just apply them. To check your schema is consistent it
+rebuilds the entire history from scratch in a throwaway copy, the *shadow database*. That
+needs a second database, and PGlite only holds one — so the connection drops and Prisma
+reports `P1017`. Prisma then suggests `prisma migrate reset`, which does work: it empties
+the database and rebuilds it clean. You get a correct schema and lose every expense,
+every group and your seed. An AI assistant reading that error message will suggest it too.
+
+`prisma migrate deploy` needs no shadow database. It applies the pending files and stops,
+which is also what production does. So write the migration file yourself, then deploy it:
+
+```bash
+mkdir -p prisma/migrations/$(date +%Y%m%d%H%M%S)_describe_your_change
+npx prisma migrate diff \
+  --from-config-datasource \
+  --to-schema prisma/schema.prisma \
+  --script > prisma/migrations/<the folder you just created>/migration.sql
+npx prisma migrate deploy
+npx prisma generate
+```
+
+Restart `npm run dev` afterwards — the generated Prisma client is not hot-reloaded.
+
+Read the generated `migration.sql` before deploying it. `migrate diff` writes what it
+takes to make the database match the schema, which on a destructive edit can include a
+`DROP`.
 
 ## Tests
 
