@@ -55,7 +55,9 @@
     "NoRecent": {
       "description": "لم تقم بزيارة أي مجموعة مؤخرًا.",
       "create": "إنشاء مجموعة",
-      "orAsk": "أو اطلب من صديق إرسال رابط مجموعة حالية."
+      "orAsk": "أو اطلب من صديق إرسال رابط مجموعة حالية.",
+      "demo": "Load the demo groups",
+      "demoFailed": "Could not load them. Is the database running?"
     },
     "recent": "المجموعات الأخيرة",
     "starred": "المجموعات المميزة",

@@ -55,7 +55,9 @@
     "NoRecent": {
       "description": "Bạn chưa xem nhóm nào gần đây.",
       "create": "Tạo nhóm",
-      "orAsk": "hoặc nhờ một người bạn gửi đường dẫn đến nhóm có sẵn."
+      "orAsk": "hoặc nhờ một người bạn gửi đường dẫn đến nhóm có sẵn.",
+      "demo": "Load the demo groups",
+      "demoFailed": "Could not load them. Is the database running?"
     },
     "recent": "Nhóm gần đây",
     "starred": "Nhóm đánh dấu",

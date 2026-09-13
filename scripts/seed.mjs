@@ -12,9 +12,14 @@
 //   - shares must satisfy the invariants enforced in src/lib/schemas.ts —
 //     BY_PERCENTAGE sums to 10000 (basis points), BY_AMOUNT sums to the
 //     expense amount, BY_SHARES is any set of integers.
+import { pathToFileURL } from 'node:url'
 import { Client } from 'pg'
 
 const DEMO_GROUP_IDS = ['demo-coloc', 'demo-couple', 'demo-yc', 'demo-etretat']
+
+// Re-exported so the browser can register the groups it just asked for.
+export const demoGroupSummaries = () =>
+  GROUPS.map(({ id, name }) => ({ id, name }))
 
 const cents = (value) => Math.round(value * 100)
 const iso = (date) => date.toISOString().slice(0, 10)
@@ -485,13 +490,16 @@ async function writeGroup(client, group) {
   return group.expenses.length
 }
 
-async function main() {
+/**
+ * Writes the demo data. Called by the CLI below and by /api/demo-seed, so the
+ * command line and the in-app button cannot drift apart.
+ */
+export async function seedDemoGroups({ log = () => {} } = {}) {
   const connectionString = process.env.POSTGRES_PRISMA_URL
   if (!connectionString) {
-    console.error(
-      'POSTGRES_PRISMA_URL is not set. Copy .env.example to .env, then run this through `npm run db:seed`.',
+    throw new Error(
+      'POSTGRES_PRISMA_URL is not set. Copy .env.example to .env first.',
     )
-    process.exit(1)
   }
 
   const client = new Client({ connectionString })
@@ -505,25 +513,29 @@ async function main() {
       `DELETE FROM "Group" WHERE id = ANY($1::text[])`,
       [DEMO_GROUP_IDS],
     )
-    if (rowCount > 0) console.log(`Removed ${rowCount} existing demo group(s).`)
+    if (rowCount > 0) log(`Removed ${rowCount} existing demo group(s).`)
 
     let total = 0
     for (const group of GROUPS) {
       const count = await writeGroup(client, group)
       total += count
-      console.log(`  ${group.name} — ${count} expenses`)
+      log(`  ${group.name} — ${count} expenses`)
     }
 
-    console.log(`\nSeeded ${GROUPS.length} groups, ${total} expenses.`)
-    console.log(
-      'Now open http://localhost:3000/demo once — the group list lives in the',
-    )
-    console.log(
-      'browser, so that page adds the four groups to it and signs you in as Alice.',
-    )
+    log(`\nSeeded ${GROUPS.length} groups, ${total} expenses.`)
+    return { groups: demoGroupSummaries(), expenses: total }
   } finally {
     await client.end()
   }
 }
 
-await main()
+// CLI entry point. Skipped when this module is imported by the app.
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+  await seedDemoGroups({ log: (line) => console.log(line) })
+  console.log(
+    'Now open http://localhost:3000/demo once — the group list lives in the',
+  )
+  console.log(
+    'browser, so that page adds the four groups to it and signs you in as Alice.',
+  )
+}

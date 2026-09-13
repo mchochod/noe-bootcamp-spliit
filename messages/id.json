@@ -55,7 +55,9 @@
     "NoRecent": {
       "description": "Anda belum mengunjungi grup mana pun baru-baru ini.",
       "create": "Buat",
-      "orAsk": "atau minta teman untuk mengirimi Anda tautan ke situs yang sudah ada."
+      "orAsk": "atau minta teman untuk mengirimi Anda tautan ke situs yang sudah ada.",
+      "demo": "Load the demo groups",
+      "demoFailed": "Could not load them. Is the database running?"
     },
     "recent": "Grup terbaru",
     "starred": "Grup berbintang",

@@ -55,7 +55,9 @@
     "NoRecent": {
       "description": "Não visitaste nenhum grupo recentemente.",
       "create": "Criar um",
-      "orAsk": "ou pergunta a um amigo para te mandar o link de um já existente."
+      "orAsk": "ou pergunta a um amigo para te mandar o link de um já existente.",
+      "demo": "Load the demo groups",
+      "demoFailed": "Could not load them. Is the database running?"
     },
     "recent": "Grupos recentes",
     "starred": "Grupos favoritos",

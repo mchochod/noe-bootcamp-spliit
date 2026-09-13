@@ -55,7 +55,9 @@
     "NoRecent": {
       "description": "V poslednej dobe ste nenavštívili žiadnu skupinu.",
       "create": "Vytvor jednu",
-      "orAsk": "môžete tiež požiadať priateľa, aby vám poslal existujúci odkaz."
+      "orAsk": "môžete tiež požiadať priateľa, aby vám poslal existujúci odkaz.",
+      "demo": "Load the demo groups",
+      "demoFailed": "Could not load them. Is the database running?"
     },
     "recent": "Posledne vytvorené skupiny",
     "starred": "Skupiny označené hviezdičkou",

@@ -55,7 +55,9 @@
     "NoRecent": {
       "description": "Son zamanlarda hiç grup ziyaret etmediniz.",
       "create": "Bir tane oluştur",
-      "orAsk": "ya da bir arkadaşınızdan mevcut bir grubun bağlantısını göndermesini isteyin."
+      "orAsk": "ya da bir arkadaşınızdan mevcut bir grubun bağlantısını göndermesini isteyin.",
+      "demo": "Load the demo groups",
+      "demoFailed": "Could not load them. Is the database running?"
     },
     "recent": "Son gruplar",
     "starred": "Yıldızlı gruplar",

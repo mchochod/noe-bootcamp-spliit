@@ -53,7 +53,9 @@
     "NoRecent": {
       "orAsk": "یا از دوستتان بخواهید لینک یکی از گروه‌های موجود را برایتان ارسال کند.",
       "description": "‫هیچ گروهی را اخیراً مشاهده نکرده‌اید.",
-      "create": "افزودن یک گروه"
+      "create": "افزودن یک گروه",
+      "demo": "Load the demo groups",
+      "demoFailed": "Could not load them. Is the database running?"
     },
     "recent": "گروه‌های اخیر",
     "starred": "گروه های ستاره خورده",

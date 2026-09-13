@@ -52,7 +52,9 @@
     "NoRecent": {
       "description": "Nu ai accesat niciun grup recent.",
       "create": "Adaugă unul",
-      "orAsk": "sau roagă un prieten să îți trimită un link către unul deja existent."
+      "orAsk": "sau roagă un prieten să îți trimită un link către unul deja existent.",
+      "demo": "Load the demo groups",
+      "demoFailed": "Could not load them. Is the database running?"
     },
     "recent": "Ultimele grupuri",
     "starred": "Grupuri favorite",

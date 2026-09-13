@@ -1,44 +1,32 @@
 'use client'
 
-import { saveRecentGroup } from '@/app/groups/recent-groups-helpers'
+import { loadDemoGroups } from '@/app/groups/demo-groups'
 import { useRouter } from 'next/navigation'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 /**
- * Puts the seeded demo groups into this browser and opens the group list.
+ * Seeds the demo data and opens the group list, in one URL.
  *
- * The "My groups" list is localStorage, not a query, so a freshly seeded
- * database looks completely empty until every group has been visited once.
- * That is fine for the real product, where groups are shared by link, but in a
- * workshop it means every participant hunting for four URLs on their own
- * machine — and again in whatever browser their AI assistant drives.
+ * Reaching for a URL is the only setup step that works identically in the
+ * participant's own browser and in whatever browser their AI assistant drives,
+ * which is why this exists next to `npm run db:seed`. Safe to open twice: the
+ * seed replaces the four demo groups and leaves anything else alone.
  *
- * Only exists in this teaching fork. The ids match scripts/seed.mjs.
+ * Only exists in this teaching fork.
  */
-const DEMO_GROUPS = [
-  { id: 'demo-couple', name: 'Alice & Bob' },
-  { id: 'demo-coloc', name: 'Coloc Oberkampf' },
-  { id: 'demo-yc', name: 'YC Combinator Summer26' },
-  { id: 'demo-etretat', name: 'Week-end à Étretat' },
-]
-
 export default function DemoPage() {
   const router = useRouter()
+  const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
-    // Oldest first, so the most interesting group ends up on top of the list.
-    for (const group of [...DEMO_GROUPS].reverse()) {
-      saveRecentGroup(group)
-      // Alice is in all four groups, so the balances and "your share" figures
-      // read as one story rather than four disconnected ones.
-      localStorage.setItem(`${group.id}-activeUser`, `${group.id}-alice`)
-    }
-    router.replace('/groups')
+    loadDemoGroups()
+      .then(() => router.replace('/groups'))
+      .catch((cause: Error) => setError(cause.message))
   }, [router])
 
   return (
-    <p className="p-6 text-muted-foreground">
-      Adding the demo groups to this browser…
+    <p className="p-6 text-sm text-muted-foreground">
+      {error ?? 'Loading the demo groups…'}
     </p>
   )
 }

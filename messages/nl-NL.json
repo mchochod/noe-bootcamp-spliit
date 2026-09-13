@@ -55,7 +55,9 @@
     "NoRecent": {
       "description": "Je hebt de laatste tijd geen groepen bezocht.",
       "create": "Maak er één",
-      "orAsk": "of vraag een vriend om je de link naar een bestaande groep te sturen."
+      "orAsk": "of vraag een vriend om je de link naar een bestaande groep te sturen.",
+      "demo": "Load the demo groups",
+      "demoFailed": "Could not load them. Is the database running?"
     },
     "recent": "Recente groepen",
     "starred": "Favoriete groepen",

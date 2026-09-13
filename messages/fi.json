@@ -52,7 +52,9 @@
     "NoRecent": {
       "description": "Et ole ollut missään ryhmässä äskettäin.",
       "create": "Luo uusi ryhmä",
-      "orAsk": "tai pyydä ystävää lähettämään linkki olemassaolevaan ryhmään."
+      "orAsk": "tai pyydä ystävää lähettämään linkki olemassaolevaan ryhmään.",
+      "demo": "Load the demo groups",
+      "demoFailed": "Could not load them. Is the database running?"
     },
     "recent": "Äskettäiset",
     "starred": "Suosikit",

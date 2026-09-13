@@ -52,7 +52,9 @@
     "NoRecent": {
       "description": "Ви не відвідували жодних груп останнім часом",
       "create": "Створіть групу",
-      "orAsk": "або попросіть друга надіслати вам посилання на існуючу"
+      "orAsk": "або попросіть друга надіслати вам посилання на існуючу",
+      "demo": "Load the demo groups",
+      "demoFailed": "Could not load them. Is the database running?"
     },
     "recent": "Нещодавні групи",
     "starred": "Обрані групи",

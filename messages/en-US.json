@@ -64,7 +64,9 @@
     "NoRecent": {
       "description": "You have not visited any group recently.",
       "create": "Create one",
-      "orAsk": "or ask a friend to send you the link to an existing one."
+      "orAsk": "or ask a friend to send you the link to an existing one.",
+      "demo": "Load the demo groups",
+      "demoFailed": "Could not load them. Is the database running?"
     },
     "GlobalBalance": {
       "title": "Your total balance",

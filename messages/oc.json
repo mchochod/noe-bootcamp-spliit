@@ -53,7 +53,9 @@
     "create": "Crear",
     "loadingRecent": "Cargament dels grops recents…",
     "NoRecent": {
-      "create": "Ne crear un"
+      "create": "Ne crear un",
+      "demo": "Load the demo groups",
+      "demoFailed": "Could not load them. Is the database running?"
     },
     "recent": "Grops recents",
     "starred": "Grops preferits",

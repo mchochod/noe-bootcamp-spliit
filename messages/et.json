@@ -55,7 +55,9 @@
     "NoRecent": {
       "description": "Sa ei ole hiljuti ühtegi gruppi külastanud.",
       "create": "Loo üks",
-      "orAsk": "või palu sõbral saata sulle link olemasolevale grupile."
+      "orAsk": "või palu sõbral saata sulle link olemasolevale grupile.",
+      "demo": "Load the demo groups",
+      "demoFailed": "Could not load them. Is the database running?"
     },
     "recent": "Hiljutised grupid",
     "starred": "Tähistatud grupid",

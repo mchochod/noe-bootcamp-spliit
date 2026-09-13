@@ -55,7 +55,9 @@
     "NoRecent": {
       "description": "Pastaruoju metu neaplankėte jokios grupės.",
       "create": "Sukurkite",
-      "orAsk": "arba paprašykite draugo atsiųsti jums nuorodą į esamą."
+      "orAsk": "arba paprašykite draugo atsiųsti jums nuorodą į esamą.",
+      "demo": "Load the demo groups",
+      "demoFailed": "Could not load them. Is the database running?"
     },
     "recent": "Paskiausios grupės",
     "starred": "Žvaigždute pažymėtos grupės",

@@ -55,7 +55,9 @@
     "NoRecent": {
       "description": "तपाईंले हालै कुनै पनि समूह भ्रमण गर्नुभएको छैन।",
       "create": "एउटा सिर्जना गर्नुहोस्",
-      "orAsk": "वा कुनै साथीलाई पहिले नै रहेको समूहको लिंक पठाउन भन्नुहोस्।"
+      "orAsk": "वा कुनै साथीलाई पहिले नै रहेको समूहको लिंक पठाउन भन्नुहोस्।",
+      "demo": "Load the demo groups",
+      "demoFailed": "Could not load them. Is the database running?"
     },
     "recent": "हालका समूहहरू",
     "starred": "तारांकित समूहहरू",

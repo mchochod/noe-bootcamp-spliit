@@ -55,7 +55,9 @@
     "NoRecent": {
       "description": "Δεν επισκεφτείκατε καμία ομάδα πρόσφατα.",
       "create": "Δημιουργείστε μια",
-      "orAsk": "ή ρωτήστε έναν φίλο να σας στείλει τον σύνδεσμο σε μια ήδη υπάρχον."
+      "orAsk": "ή ρωτήστε έναν φίλο να σας στείλει τον σύνδεσμο σε μια ήδη υπάρχον.",
+      "demo": "Load the demo groups",
+      "demoFailed": "Could not load them. Is the database running?"
     },
     "recent": "Πρόσφατες ομάδες",
     "starred": "Ομάδες με αστερίσκο",

@@ -55,7 +55,9 @@
     "NoRecent": {
       "description": "最近訪れたグループはありません。",
       "create": "グループを作成する",
-      "orAsk": "または友達に既存のグループへのリンクを送ってもらいましょう。"
+      "orAsk": "または友達に既存のグループへのリンクを送ってもらいましょう。",
+      "demo": "Load the demo groups",
+      "demoFailed": "Could not load them. Is the database running?"
     },
     "recent": "最近のグループ",
     "starred": "スター付きグループ",

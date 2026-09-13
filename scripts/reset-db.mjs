@@ -16,6 +16,17 @@ if (!connectionString) {
   process.exit(1)
 }
 
+// This deletes every group unconditionally, which is what you want against a
+// throwaway local database and a disaster against anything else. Refuse to run
+// unless the target is on this machine.
+const host = new URL(connectionString).hostname || 'localhost'
+if (!['localhost', '127.0.0.1', '::1', ''].includes(host)) {
+  console.error(
+    `Refusing to wipe a database on "${host}". This script only runs against localhost.`,
+  )
+  process.exit(1)
+}
+
 const client = new Client({ connectionString })
 await client.connect()
 

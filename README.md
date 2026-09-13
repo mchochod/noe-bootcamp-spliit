@@ -104,19 +104,28 @@ You need **two terminals**, both in the repository folder.
    Then set the same port in `.env`, on **both** `POSTGRES_PRISMA_URL` and
    `POSTGRES_URL_NON_POOLING` (e.g. `postgresql://postgres:1234@localhost:5499`).
 5. *Terminal 2* — run `npm run db:migrate` to apply the database migrations
-6. *Terminal 2* — run `npm run db:seed` to load the demo data: four groups
-   around the same person, in euros and dollars, spanning eighteen months
-7. *Terminal 2* — run `npm run dev` to start the development server
+6. *Terminal 2* — run `npm run dev` to start the development server
 
-Then open **http://localhost:3000/demo** once. The "My groups" list lives in your
-browser rather than in the database, so a freshly seeded app looks empty until you do;
-that page adds the four groups to this browser and signs you in as Alice. Open it again
-in any other browser — including the one your AI assistant drives — to get the same
-state there.
+### Demo data
+
+The app starts empty. Loading the sample data takes one of three routes, all of which
+run the same seed:
+
+- open **http://localhost:3000/demo**, which seeds and then opens the group list;
+- click **Load the demo groups** on the empty group list;
+- run **`npm run db:seed`** from a terminal.
+
+Whichever you use, do it **once per browser**. The seed writes to the database, but the
+"My groups" list is browser state rather than a query, so a browser that has never
+opened those groups still shows nothing — including the browser your AI assistant
+drives. `/demo` and the button both register the groups locally and sign you in as
+Alice; the terminal command cannot, so after it you still need `/demo` or the button.
+
+You get four groups:
 
 | Group | |
 |---|---|
-| **Alice & Bob** | a couple, eighteen months of history, still open |
+| **Alice & Bob** ★ | a couple, eighteen months of history, still open |
 | **Coloc Oberkampf** | a flatshare, closed in March 2026 and settled to zero |
 | **YC Combinator Summer26** | a month in San Francisco, **in dollars** |
 | **Week-end à Étretat** | five friends, one weekend, uneven participation |
@@ -125,8 +134,8 @@ Alice is in all four, so the balances and the "your share" figures tell one stor
 
 ### Starting over
 
-`npm run db:seed` is idempotent: it replaces the four demo groups and leaves any group
-you created yourself alone. Run it whenever the demo data drifts.
+Seeding is idempotent, by whichever route: it replaces the four demo groups and leaves
+any group you created yourself alone. Re-run it whenever the demo data drifts.
 
 `npm run db:reset` is the bigger hammer — it deletes **every** group, yours included,
 then re-seeds. Both work with the database running, so you never have to stop

@@ -55,7 +55,9 @@
     "NoRecent": {
       "description": "Du har inte besökt några grupper nyligen.",
       "create": "Skapa en",
-      "orAsk": "eller fråga en vän att skicka länken till en existerande."
+      "orAsk": "eller fråga en vän att skicka länken till en existerande.",
+      "demo": "Load the demo groups",
+      "demoFailed": "Could not load them. Is the database running?"
     },
     "recent": "Senaste grupper",
     "starred": "Stjärnmärkta grupper",

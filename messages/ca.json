@@ -55,7 +55,9 @@
     "NoRecent": {
       "description": "No has visitat cap grup recentment.",
       "create": "Crea'n un",
-      "orAsk": "o demana a una amiga que et comparteixi l'enllaç a un grup ja existent."
+      "orAsk": "o demana a una amiga que et comparteixi l'enllaç a un grup ja existent.",
+      "demo": "Load the demo groups",
+      "demoFailed": "Could not load them. Is the database running?"
     },
     "recent": "Grups recents",
     "starred": "Grups preferits",

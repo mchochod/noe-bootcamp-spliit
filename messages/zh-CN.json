@@ -55,7 +55,9 @@
     "NoRecent": {
       "description": "你最近没有访问任何群组。",
       "create": "创建一个群组",
-      "orAsk": "或者让你的朋友发给你现有群组的链接。"
+      "orAsk": "或者让你的朋友发给你现有群组的链接。",
+      "demo": "Load the demo groups",
+      "demoFailed": "Could not load them. Is the database running?"
     },
     "recent": "最近的群组",
     "starred": "已收藏的群组",

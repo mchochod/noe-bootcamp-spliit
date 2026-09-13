@@ -14,6 +14,7 @@ import { Loader2 } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import Link from 'next/link'
 import { PropsWithChildren, useEffect, useState } from 'react'
+import { loadDemoGroups } from './demo-groups'
 import { GlobalBalanceCard } from './global-balance-card'
 import { RecentGroupListCard } from './recent-group-list-card'
 
@@ -130,6 +131,7 @@ function RecentGroupList_({
             </Button>{' '}
             {t('NoRecent.orAsk')}
           </p>
+          <DemoGroupsButton onLoaded={refreshGroupsFromStorage} />
         </div>
       </GroupsPage>
     )
@@ -186,6 +188,44 @@ function RecentGroupList_({
         </>
       )}
     </GroupsPage>
+  )
+}
+
+/**
+ * Fills an empty install with the demo data, for the workshop this fork is
+ * used in. Only exists here; /api/demo-seed is disabled in production.
+ */
+function DemoGroupsButton({ onLoaded }: { onLoaded: () => void }) {
+  const t = useTranslations('Groups')
+  const [state, setState] = useState<'idle' | 'loading' | 'error'>('idle')
+
+  return (
+    <p className="pt-2">
+      <Button
+        variant="secondary"
+        size="sm"
+        disabled={state === 'loading'}
+        onClick={async () => {
+          setState('loading')
+          try {
+            await loadDemoGroups()
+            onLoaded()
+          } catch {
+            setState('error')
+          }
+        }}
+      >
+        {state === 'loading' && (
+          <Loader2 className="w-4 h-4 animate-spin mr-2" />
+        )}
+        {t('NoRecent.demo')}
+      </Button>
+      {state === 'error' && (
+        <span className="ml-2 text-destructive">
+          {t('NoRecent.demoFailed')}
+        </span>
+      )}
+    </p>
   )
 }
 

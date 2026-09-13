@@ -55,7 +55,9 @@
     "NoRecent": {
       "description": "У вас нет недавних групп.",
       "create": "Вы можете создать группу",
-      "orAsk": "или попросить вашего друга отправить вам ссылку на существующую."
+      "orAsk": "или попросить вашего друга отправить вам ссылку на существующую.",
+      "demo": "Load the demo groups",
+      "demoFailed": "Could not load them. Is the database running?"
     },
     "recent": "Недавние группы",
     "starred": "Избранные",

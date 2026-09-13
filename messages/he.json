@@ -55,7 +55,9 @@
     "NoRecent": {
       "description": "לא ביקרת באף קבוצה לאחרונה.",
       "create": "צור אחת",
-      "orAsk": "או בקש מחבר לשלוח לך את הקישור לקבוצה קיימת."
+      "orAsk": "או בקש מחבר לשלוח לך את הקישור לקבוצה קיימת.",
+      "demo": "Load the demo groups",
+      "demoFailed": "Could not load them. Is the database running?"
     },
     "recent": "קבוצות אחרונות",
     "starred": "קבוצות מסומנות בכוכב",

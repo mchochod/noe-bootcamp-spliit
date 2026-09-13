@@ -55,7 +55,9 @@
     "NoRecent": {
       "description": "Mostanában nem néztél meg egy csoportot sem.",
       "create": "Hozz létre egyet",
-      "orAsk": "vagy kérd meg egy barátod, hogy küldje el egy létezőnek a linkjét."
+      "orAsk": "vagy kérd meg egy barátod, hogy küldje el egy létezőnek a linkjét.",
+      "demo": "Load the demo groups",
+      "demoFailed": "Could not load them. Is the database running?"
     },
     "recent": "Legutóbbi csoportok",
     "starred": "Csillaggal megjelölt csoportok",

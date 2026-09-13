@@ -55,7 +55,9 @@
     "NoRecent": {
       "description": "Vous n'avez visité aucun groupe récemment.",
       "create": "Créer un groupe",
-      "orAsk": "ou demandez à un ami de vous envoyer le lien d'un groupe existant."
+      "orAsk": "ou demandez à un ami de vous envoyer le lien d'un groupe existant.",
+      "demo": "Charger les groupes de démo",
+      "demoFailed": "Échec du chargement. La base tourne-t-elle ?"
     },
     "recent": "Groupes récents",
     "starred": "Groupes favoris",

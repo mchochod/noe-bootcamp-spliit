@@ -55,7 +55,9 @@
     "NoRecent": {
       "description": "Azken aldian ez duzu talderik bisitatu.",
       "create": "Sortu bat",
-      "orAsk": "edo eskatu lagun bati lehendik dagoen baten esteka bidaltzeko."
+      "orAsk": "edo eskatu lagun bati lehendik dagoen baten esteka bidaltzeko.",
+      "demo": "Load the demo groups",
+      "demoFailed": "Could not load them. Is the database running?"
     },
     "recent": "Azken taldeak",
     "starred": "Gogoko taldeak",
