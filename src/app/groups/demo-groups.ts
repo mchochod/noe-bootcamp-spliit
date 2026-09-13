@@ -1,4 +1,6 @@
 import {
+  archiveGroup,
+  getArchivedGroups,
   getStarredGroups,
   saveRecentGroup,
   starGroup,
@@ -17,6 +19,10 @@ import {
  * Only exists in this teaching fork.
  */
 const STARRED_GROUP_ID = 'demo-couple'
+// The two trips that are settled to zero. Nothing is outstanding, so they
+// belong out of the way — and the list needs an archived section to look like
+// an account someone has actually used.
+const ARCHIVED_GROUP_IDS = ['demo-coloc', 'demo-london']
 
 /** @see the note above. */
 export async function loadDemoGroups() {
@@ -44,6 +50,11 @@ export async function loadDemoGroups() {
   // stats, so it is the one to land on. Starring pins it to the top.
   if (!getStarredGroups().includes(STARRED_GROUP_ID))
     starGroup(STARRED_GROUP_ID)
+
+  const archived = getArchivedGroups()
+  for (const id of ARCHIVED_GROUP_IDS) {
+    if (!archived.includes(id)) archiveGroup(id)
+  }
 
   return groups
 }
