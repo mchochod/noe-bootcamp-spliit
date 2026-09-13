@@ -104,7 +104,24 @@ You need **two terminals**, both in the repository folder.
    Then set the same port in `.env`, on **both** `POSTGRES_PRISMA_URL` and
    `POSTGRES_URL_NON_POOLING` (e.g. `postgresql://postgres:1234@localhost:5499`).
 5. *Terminal 2* — run `npm run db:migrate` to apply the database migrations
-6. *Terminal 2* — run `npm run dev` to start the development server
+6. *Terminal 2* — run `npm run db:seed` to load the demo data: four groups
+   around the same person, in euros and dollars, spanning eighteen months
+7. *Terminal 2* — run `npm run dev` to start the development server
+
+Open http://localhost:3000, pick a group, and say you are **Alice** when asked — she
+is in all four groups.
+
+### Starting over
+
+`npm run db:seed` is idempotent: it replaces the four demo groups and leaves any group
+you created yourself alone. Run it whenever the demo data drifts.
+
+`npm run db:reset` is the bigger hammer — it deletes **every** group, yours included,
+then re-seeds. Both work with the database running, so you never have to stop
+`npm run db`.
+
+If the database itself is broken rather than the data, stop `npm run db`, delete the
+`pglite-data` folder, then run `npm run db:migrate` and `npm run db:seed` again.
 
 > **Do not run `prisma migrate dev` against this database** — it needs a shadow database
 > that PGlite cannot provide, fails with `P1017`, and the usual suggested fix
