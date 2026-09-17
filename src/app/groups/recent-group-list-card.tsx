@@ -68,6 +68,7 @@ export function RecentGroupListCard({
       archiveGroup(group.id)
       unstarGroup(group.id)
     }
+    refreshGroupsFromStorage()
   }
 
   return (
