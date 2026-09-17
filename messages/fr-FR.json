@@ -59,6 +59,13 @@
       "demo": "Charger les groupes de démo",
       "demoFailed": "Échec du chargement. La base tourne-t-elle ?"
     },
+    "GlobalBalance": {
+      "title": "Votre solde total",
+      "description": "Votre solde cumulé sur l'ensemble de vos groupes.",
+      "owedToYou": "On vous doit",
+      "youOwe": "Vous devez",
+      "settledUp": "Vous êtes à jour sur l'ensemble de vos groupes."
+    },
     "recent": "Groupes récents",
     "starred": "Groupes favoris",
     "archived": "Groupes archivés",
