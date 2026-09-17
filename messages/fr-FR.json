@@ -64,7 +64,7 @@
       "description": "Votre solde cumulé sur l'ensemble de vos groupes.",
       "owedToYou": "On vous doit",
       "youOwe": "Vous devez",
-      "settledUp": "Vous êtes à jour sur l'ensemble de vos groupes."
+      "settledUp": "Vous êtes quitte avec l'ensemble de vos groupes."
     },
     "recent": "Groupes récents",
     "starred": "Groupes favoris",
