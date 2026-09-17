@@ -89,4 +89,22 @@ describe('expenseFormSchema, amount typed as a calculation', () => {
     expect(parseAmount('12+').success).toBe(false)
     expect(parseAmount('12++8').success).toBe(false)
   })
+
+  // The amount is a union, so the message raised by the string branch sits one
+  // level down, among the alternatives zod tried.
+  function amountMessages(amount: string) {
+    return (parseAmount(amount).error?.issues ?? []).flatMap((issue) =>
+      issue.code === 'invalid_union'
+        ? issue.errors.flat().map((nested) => nested.message)
+        : [issue.message],
+    )
+  }
+
+  it('reports a broken calculation as one, not as an invalid number', () => {
+    expect(amountMessages('12+')).toContain('invalidCalculation')
+  })
+
+  it('still reports a plain amount that is not a number as such', () => {
+    expect(amountMessages('abc')).toContain('invalidNumber')
+  })
 })

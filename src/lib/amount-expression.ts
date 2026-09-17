@@ -19,6 +19,15 @@ type Operator = '+' | '-' | '*' | '/' | '(' | ')'
 // it invalid.
 const TOKEN_PATTERN = /\d+(?:\.\d+)?|\.\d+|[+\-*/()]/g
 
+// The same alphabet, as a mask for what may be typed: the tokens above plus the
+// comma and the space, which `tokenize` normalises away. Exported so the form's
+// input mask cannot drift from what actually parses here.
+const EXPRESSION_CHARACTERS = /[^\d.,+\-*/() ]/g
+
+/** Drops from the typed value everything a calculation cannot be made of. */
+export const stripToAmountExpression = (value: string) =>
+  value.replace(EXPRESSION_CHARACTERS, '')
+
 type Cursor = { tokens: Token[]; index: number }
 
 /**

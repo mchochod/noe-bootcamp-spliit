@@ -39,6 +39,7 @@ import { Locale } from '@/i18n/request'
 import {
   evaluateAmountExpression,
   isAmountExpression,
+  stripToAmountExpression,
 } from '@/lib/amount-expression'
 import { useAnalytics } from '@/lib/analytics/context'
 import { Currency, defaultCurrencyList, getCurrency } from '@/lib/currency'
@@ -67,6 +68,7 @@ import {
 } from '@/lib/utils'
 import { AppRouterOutput } from '@/trpc/routers/_app'
 import { zodResolver } from '@hookform/resolvers/zod'
+import Decimal from 'decimal.js'
 import { ChevronRight, Save } from 'lucide-react'
 import { useLocale, useTranslations } from 'next-intl'
 import Link from 'next/link'
@@ -106,7 +108,7 @@ const enforceCurrencyPattern = (value: string, currency?: Currency) => {
  */
 const enforceAmountPattern = (value: string, currency?: Currency) =>
   isAmountExpression(value)
-    ? value.replace(/[^-\d.,+*/() ]/g, '')
+    ? stripToAmountExpression(value)
     : enforceCurrencyPattern(value, currency)
 
 const getDefaultSplittingOptions = (
@@ -949,11 +951,20 @@ export function ExpenseForm({
                               return
                             }
                             form.clearErrors('amount')
+                            // Round to the currency here: enforceCurrencyPattern
+                            // only trims the string, so 20/3 would be saved as
+                            // 6.66 rather than 6.67.
+                            const value =
+                              groupCurrency === undefined
+                                ? String(result)
+                                : new Decimal(result)
+                                    .toDecimalPlaces(
+                                      groupCurrency.decimal_digits,
+                                      Decimal.ROUND_HALF_UP,
+                                    )
+                                    .toString()
                             updateAmount(
-                              enforceCurrencyPattern(
-                                String(result),
-                                groupCurrency,
-                              ),
+                              enforceCurrencyPattern(value, groupCurrency),
                             )
                           }}
                         />
