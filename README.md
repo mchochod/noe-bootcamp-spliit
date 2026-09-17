@@ -4,7 +4,7 @@
 > [Sebastien Castiel](https://github.com/scastiel), used as the demo codebase for a
 > two-day *Claude Code for PMs* bootcamp run with [Noé](https://noe.co) (17–18 September 2026).
 >
-> It exists so participants have a real, non-trivial codebase to read, debug and ship to.
+> It exists so participants have a real, non-trivial codebase to read, debug, and ship to.
 > Some bugs in this fork are **deliberately planted** as exercises, and the local setup is
 > adapted for a classroom (no Docker required — see [Run locally](#run-locally)).
 >
