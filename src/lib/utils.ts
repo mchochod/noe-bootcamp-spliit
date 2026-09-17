@@ -140,6 +140,16 @@ export function amountAsMinorUnits(amount: number, currency: Currency) {
 }
 
 /**
+ * Splits a monetary amount (in minor units) evenly across a number of participants.
+ *
+ * @param amount The amount in minor units
+ * @param participantCount The number of people splitting the amount
+ */
+export function splitAmountEvenly(amount: number, participantCount: number) {
+  return amount / participantCount
+}
+
+/**
  * Formats monetary amounts in minor units to the corresponding amount in major units in the given currency,
  * as a string, with correct rounding.
  *
