@@ -36,6 +36,10 @@ import {
 } from '@/components/ui/select'
 import { RecurrenceRule, SplitMode } from '@/generated/prisma/browser'
 import { Locale } from '@/i18n/request'
+import {
+  evaluateAmountExpression,
+  isAmountExpression,
+} from '@/lib/amount-expression'
 import { useAnalytics } from '@/lib/analytics/context'
 import { Currency, defaultCurrencyList, getCurrency } from '@/lib/currency'
 import {
@@ -93,6 +97,17 @@ const enforceCurrencyPattern = (value: string, currency?: Currency) => {
   if (fraction === undefined || currency.decimal_digits === 0) return integer
   return `${integer}.${fraction.slice(0, currency.decimal_digits)}`
 }
+
+/**
+ * Same, for the amount, which may also be typed as a small calculation
+ * (`12+8,50`, `(12+8)*2`). A calculation keeps the characters it is made of and
+ * is worked out when the field is left; anything else is a plain amount and
+ * goes through the pattern above unchanged.
+ */
+const enforceAmountPattern = (value: string, currency?: Currency) =>
+  isAmountExpression(value)
+    ? value.replace(/[^-\d.,+*/() ]/g, '')
+    : enforceCurrencyPattern(value, currency)
 
 const getDefaultSplittingOptions = (
   group: NonNullable<AppRouterOutput['groups']['get']['group']>,
@@ -884,65 +899,92 @@ export function ExpenseForm({
             <FormField
               control={form.control}
               name="amount"
-              render={({ field: { onChange, ...field } }) => (
-                <FormItem
-                  className={
-                    convertFromGroupCurrency ? 'sm:order-4' : 'sm:order-5'
-                  }
-                >
-                  <FormLabel>{t('amountField.label')}</FormLabel>
-                  <div className="flex items-baseline gap-2">
-                    <span>{group.currency}</span>
-                    <FormControl>
-                      <Input
-                        className="text-base max-w-[120px]"
-                        type="text"
-                        inputMode="decimal"
-                        placeholder="0.00"
-                        onChange={(event) => {
-                          const v = enforceCurrencyPattern(
-                            event.target.value,
-                            groupCurrency,
-                          )
-                          const income = Number(v) < 0
-                          setIsIncome(income)
-                          if (income) form.setValue('isReimbursement', false)
-                          onChange(v)
-                        }}
-                        onFocus={(e) => {
-                          // we're adding a small delay to get around safaris issue with onMouseUp deselecting things again
-                          const target = e.currentTarget
-                          setTimeout(() => target.select(), 1)
-                        }}
-                        {...field}
-                      />
-                    </FormControl>
-                  </div>
-                  <FormMessage />
+              render={({ field: { onChange, ...field } }) => {
+                const updateAmount = (value: string) => {
+                  const income = Number(value) < 0
+                  setIsIncome(income)
+                  if (income) form.setValue('isReimbursement', false)
+                  onChange(value)
+                }
+                return (
+                  <FormItem
+                    className={
+                      convertFromGroupCurrency ? 'sm:order-4' : 'sm:order-5'
+                    }
+                  >
+                    <FormLabel>{t('amountField.label')}</FormLabel>
+                    <div className="flex items-baseline gap-2">
+                      <span>{group.currency}</span>
+                      <FormControl>
+                        <Input
+                          className="text-base max-w-[120px]"
+                          type="text"
+                          inputMode="decimal"
+                          placeholder="0.00"
+                          onChange={(event) => {
+                            const v = enforceAmountPattern(
+                              event.target.value,
+                              groupCurrency,
+                            )
+                            updateAmount(v)
+                          }}
+                          onFocus={(e) => {
+                            // we're adding a small delay to get around safaris issue with onMouseUp deselecting things again
+                            const target = e.currentTarget
+                            setTimeout(() => target.select(), 1)
+                          }}
+                          {...field}
+                          onBlur={(event) => {
+                            field.onBlur()
+                            const typed = event.target.value
+                            if (!isAmountExpression(typed)) return
+                            const result = evaluateAmountExpression(typed)
+                            if (result === null) {
+                              // Leave what was typed in place to be corrected,
+                              // rather than saving something else for it.
+                              form.setError('amount', {
+                                type: 'manual',
+                                message: 'invalidCalculation',
+                              })
+                              return
+                            }
+                            form.clearErrors('amount')
+                            updateAmount(
+                              enforceCurrencyPattern(
+                                String(result),
+                                groupCurrency,
+                              ),
+                            )
+                          }}
+                        />
+                      </FormControl>
+                    </div>
+                    <FormMessage />
 
-                  {!isIncome && (
-                    <FormField
-                      control={form.control}
-                      name="isReimbursement"
-                      render={({ field }) => (
-                        <FormItem className="flex flex-row gap-2 items-center space-y-0 pt-2">
-                          <FormControl>
-                            <Checkbox
-                              checked={field.value}
-                              onCheckedChange={field.onChange}
-                            />
-                          </FormControl>
-                          <div>
-                            <FormLabel>
-                              {t('isReimbursementField.label')}
-                            </FormLabel>
-                          </div>
-                        </FormItem>
-                      )}
-                    />
-                  )}
-                </FormItem>
-              )}
+                    {!isIncome && (
+                      <FormField
+                        control={form.control}
+                        name="isReimbursement"
+                        render={({ field }) => (
+                          <FormItem className="flex flex-row gap-2 items-center space-y-0 pt-2">
+                            <FormControl>
+                              <Checkbox
+                                checked={field.value}
+                                onCheckedChange={field.onChange}
+                              />
+                            </FormControl>
+                            <div>
+                              <FormLabel>
+                                {t('isReimbursementField.label')}
+                              </FormLabel>
+                            </div>
+                          </FormItem>
+                        )}
+                      />
+                    )}
+                  </FormItem>
+                )
+              }}
             />
 
             <FormField
@@ -1158,7 +1200,11 @@ export function ExpenseForm({
                                           // here match the balances tab.
                                           id: expense?.id,
                                           amount: amountAsMinorUnits(
-                                            Number(form.watch('amount')),
+                                            // A calculation being typed is not
+                                            // an amount yet: show no share
+                                            // rather than NaN until it is
+                                            // worked out.
+                                            Number(form.watch('amount')) || 0,
                                             groupCurrency,
                                           ), // Convert to cents
                                           paidFor: field.value.map(
