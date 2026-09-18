@@ -1,4 +1,8 @@
 import { RecurrenceRule, SplitMode } from '@/generated/prisma/browser'
+import {
+  evaluateAmountExpression,
+  isAmountExpression,
+} from '@/lib/amount-expression'
 import Decimal from 'decimal.js'
 
 import * as z from 'zod'
@@ -62,11 +66,20 @@ export const expenseFormSchema = z
         [
           z.number(),
           z.string().transform((value, ctx) => {
-            const valueAsNumber = Number(value)
+            // An amount may be typed as a small calculation, which the form
+            // works out when the field is left. Parsing it here too covers a
+            // submit that never blurred the field; a plain amount is read
+            // exactly as before.
+            const isExpression = isAmountExpression(value)
+            const valueAsNumber = isExpression
+              ? (evaluateAmountExpression(value) ?? Number.NaN)
+              : Number(value)
             if (Number.isNaN(valueAsNumber))
               ctx.addIssue({
                 code: z.ZodIssueCode.custom,
-                message: 'invalidNumber',
+                // The same failure the form reports on blur, so a calculation
+                // that never blurred does not get a different message here.
+                message: isExpression ? 'invalidCalculation' : 'invalidNumber',
               })
             return valueAsNumber
           }),

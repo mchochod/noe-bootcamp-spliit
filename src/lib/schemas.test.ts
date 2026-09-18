@@ -60,3 +60,51 @@ describe('expenseFormSchema, split by amount', () => {
     ])
   })
 })
+
+describe('expenseFormSchema, amount typed as a calculation', () => {
+  function parseAmount(amount: string) {
+    return expenseFormSchema.safeParse({
+      expenseDate: new Date('2026-09-01'),
+      title: 'Dinner',
+      amount,
+      paidBy: 'a',
+      splitMode: 'EVENLY',
+      saveDefaultSplittingOptions: false,
+      isReimbursement: false,
+      paidFor: [{ participant: 'p0', shares: '1' }],
+    })
+  }
+
+  it('works the calculation out, for a submit that never blurred the field', () => {
+    expect(parseAmount('12+8,50').data?.amount).toBe(20.5)
+    expect(parseAmount('3*4.20').data?.amount).toBe(12.6)
+  })
+
+  it('still reads a plain amount', () => {
+    expect(parseAmount('20.5').data?.amount).toBe(20.5)
+    expect(parseAmount('-15').data?.amount).toBe(-15)
+  })
+
+  it('rejects a calculation that makes no sense rather than saving it', () => {
+    expect(parseAmount('12+').success).toBe(false)
+    expect(parseAmount('12++8').success).toBe(false)
+  })
+
+  // The amount is a union, so the message raised by the string branch sits one
+  // level down, among the alternatives zod tried.
+  function amountMessages(amount: string) {
+    return (parseAmount(amount).error?.issues ?? []).flatMap((issue) =>
+      issue.code === 'invalid_union'
+        ? issue.errors.flat().map((nested) => nested.message)
+        : [issue.message],
+    )
+  }
+
+  it('reports a broken calculation as one, not as an invalid number', () => {
+    expect(amountMessages('12+')).toContain('invalidCalculation')
+  })
+
+  it('still reports a plain amount that is not a number as such', () => {
+    expect(amountMessages('abc')).toContain('invalidNumber')
+  })
+})
