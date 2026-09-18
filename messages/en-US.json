@@ -457,6 +457,30 @@
       "download": "Download QR Code"
     }
   },
+  "Wrapped": {
+    "closeButton": "Close & drop the recap",
+    "viewButton": "See the recap",
+    "closeConfirmTitle": "Close out this trip?",
+    "closeConfirmDescription": "This drops a recap for the whole group. You can still add or edit expenses after — closing locks nothing, promise.",
+    "closeConfirmAction": "Close & drop the recap",
+    "cancel": "Cancel",
+    "title": "The recap that hits different",
+    "closedOn": "Closed on {date}",
+    "slideCover": "The recap that hits different 🔥",
+    "totalSpendingDetail": "{count, plural, one {across # expense} other {across # expenses}}, split between {participants, plural, one {# participant} other {# participants}}.",
+    "start": "Let's go",
+    "next": "Next",
+    "back": "Back",
+    "backToGroup": "Back to group",
+    "totalSpending": "The whole bag, gone",
+    "biggestExpense": "THE expense that wrecked everything",
+    "paidBy": "paid by {name}",
+    "topSpender": "THE BIGGEST BIG SPENDER 🐷",
+    "mostFrequentPayer": "THE TIGHTEST GRIP ON THE CARD 💳",
+    "topCategory": "The category that ate the budget",
+    "times": "{count, plural, one {# expense} other {# expenses}}",
+    "empty": "Not enough expenses yet for a recap that hits."
+  },
   "SchemaErrors": {
     "min1": "Enter at least one character.",
     "min2": "Enter at least two characters.",

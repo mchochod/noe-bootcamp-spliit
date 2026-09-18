@@ -2,6 +2,7 @@ import { getBalances } from './balances'
 import {
   calculateShare,
   filterExpensesByDateRange,
+  getBiggestExpense,
   getExpensesByCategory,
   getExpensesByMonth,
   getRecurringSpending,
@@ -519,5 +520,45 @@ describe('getSpendingByParticipant shares', () => {
     expect(result.reduce((sum, { share }) => sum + share, 0)).toBe(
       getTotalGroupSpending(expenses),
     )
+  })
+})
+
+describe('getBiggestExpense', () => {
+  it('returns the largest non-reimbursement expense', () => {
+    const expenses = [
+      makeExpense({
+        id: 'small',
+        title: 'Coffee',
+        amount: 500,
+        paidBy: { id: 'alice', name: 'Alice' },
+      }),
+      makeExpense({
+        id: 'big',
+        title: 'Hotel',
+        amount: 20000,
+        paidBy: { id: 'bob', name: 'Bob' },
+      }),
+      makeExpense({
+        id: 'reimbursement',
+        title: 'Reimbursement',
+        amount: 50000,
+        isReimbursement: true,
+        paidBy: { id: 'alice', name: 'Alice' },
+      }),
+    ]
+
+    expect(getBiggestExpense(expenses)).toEqual({
+      id: 'big',
+      title: 'Hotel',
+      amount: 20000,
+      paidByName: 'Bob',
+    })
+  })
+
+  it('returns null when there are no qualifying expenses', () => {
+    expect(getBiggestExpense([])).toBeNull()
+    expect(
+      getBiggestExpense([makeExpense({ amount: 100, isReimbursement: true })]),
+    ).toBeNull()
   })
 })

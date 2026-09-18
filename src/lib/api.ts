@@ -293,6 +293,23 @@ export async function updateExpense(
   })
 }
 
+/**
+ * Marks a group as closed (issue #14 — "trip wrapped"). This doesn't lock the
+ * group: expenses can still be added or edited afterwards, closing only
+ * surfaces the recap. Idempotent — closing an already-closed group is a
+ * no-op rather than overwriting the original `closedAt`.
+ */
+export async function closeGroup(groupId: string) {
+  const group = await getGroup(groupId)
+  if (!group) throw new Error('Invalid group ID')
+  if (group.closedAt) return group
+
+  return prisma.group.update({
+    where: { id: groupId },
+    data: { closedAt: new Date() },
+  })
+}
+
 export async function updateGroup(
   groupId: string,
   groupFormValues: GroupFormValues,
