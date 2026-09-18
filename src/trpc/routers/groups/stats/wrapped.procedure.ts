@@ -34,6 +34,8 @@ export const getStatsWrappedProcedure = baseProcedure
     return {
       closedAt: group.closedAt,
       totalSpending: getTotalGroupSpending(expenses),
+      expenseCount: expenses.filter((expense) => !expense.isReimbursement)
+        .length,
       biggestExpense: getBiggestExpense(expenses),
       topSpender: byParticipant[0] ?? null,
       // Most expenses paid for, not most spent — "who always got the bill".
