@@ -5,6 +5,7 @@ import { ShareButton } from '@/app/groups/[groupId]/share-button'
 import { Skeleton } from '@/components/ui/skeleton'
 import Link from 'next/link'
 import { useCurrentGroup } from './current-group-context'
+import { WrappedButton } from './wrapped-button'
 
 export const GroupHeader = () => {
   const { isLoading, groupId, group } = useCurrentGroup()
@@ -23,7 +24,10 @@ export const GroupHeader = () => {
 
       <div className="flex gap-2 justify-between">
         <GroupTabs groupId={groupId} />
-        {group && <ShareButton group={group} />}
+        <div className="flex gap-2 flex-shrink-0">
+          {!isLoading && <WrappedButton />}
+          {group && <ShareButton group={group} />}
+        </div>
       </div>
     </div>
   )

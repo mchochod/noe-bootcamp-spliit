@@ -365,6 +365,24 @@
     "warning": "Avertissement !",
     "warningHelp": "Toute personne ayant l'URL du groupe pourra voir et modifier les dépenses. Partagez avec prudence !"
   },
+  "Wrapped": {
+    "closeButton": "Clôturer & voir le récap",
+    "viewButton": "Voir le récap",
+    "closeConfirmTitle": "Clôturer ce voyage ?",
+    "closeConfirmDescription": "Ça affiche un récap à tous les participants du groupe. Vous pourrez toujours ajouter ou modifier des dépenses ensuite — clôturer ne verrouille rien.",
+    "closeConfirmAction": "Clôturer & voir le récap",
+    "cancel": "Annuler",
+    "title": "Récap du voyage",
+    "closedOn": "Clôturé le {date}",
+    "totalSpending": "Total dépensé",
+    "biggestExpense": "Plus grosse dépense",
+    "paidBy": "payé par {name}",
+    "topSpender": "A le plus payé",
+    "mostFrequentPayer": "A le plus souvent sorti la carte",
+    "topCategory": "Catégorie qui a le plus coûté",
+    "times": "{count, plural, one {# dépense} other {# dépenses}}",
+    "empty": "Pas encore assez de dépenses pour un récap."
+  },
   "SchemaErrors": {
     "min1": "Entrez au moins un caractère.",
     "min2": "Entrez au moins deux caractères.",

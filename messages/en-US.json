@@ -457,6 +457,24 @@
       "download": "Download QR Code"
     }
   },
+  "Wrapped": {
+    "closeButton": "Close & see recap",
+    "viewButton": "View recap",
+    "closeConfirmTitle": "Close this trip?",
+    "closeConfirmDescription": "This shows a recap to everyone in the group. You can still add or edit expenses afterwards — closing doesn't lock anything.",
+    "closeConfirmAction": "Close & see recap",
+    "cancel": "Cancel",
+    "title": "Trip Wrapped",
+    "closedOn": "Closed on {date}",
+    "totalSpending": "Total spent",
+    "biggestExpense": "Biggest expense",
+    "paidBy": "paid by {name}",
+    "topSpender": "Paid the most",
+    "mostFrequentPayer": "Got the bill the most often",
+    "topCategory": "Top category",
+    "times": "{count, plural, one {# expense} other {# expenses}}",
+    "empty": "Not enough expenses yet for a recap."
+  },
   "SchemaErrors": {
     "min1": "Enter at least one character.",
     "min2": "Enter at least two characters.",
