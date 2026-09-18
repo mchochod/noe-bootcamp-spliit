@@ -1,6 +1,8 @@
 import { RecurrenceRule, SplitMode } from '@/generated/prisma/browser'
 import Decimal from 'decimal.js'
 
+import { looksLikeExpression, parseAmountExpression } from './expression'
+
 import * as z from 'zod'
 
 export const groupFormSchema = z
@@ -57,25 +59,42 @@ export const expenseFormSchema = z
       })
       .min(2, 'min2'),
     category: z.coerce.number().default(0),
+    // The union accepts both shapes without ever failing, and the coercion
+    // happens in the transform after it. A union that can fail buries its
+    // options' issues under `invalid_union` and reports an untranslatable
+    // "Invalid input" on the field, which is why `invalidNumber` never used to
+    // reach anyone.
     amount: z
-      .union(
-        [
-          z.number(),
-          z.string().transform((value, ctx) => {
-            const valueAsNumber = Number(value)
-            if (Number.isNaN(valueAsNumber))
-              ctx.addIssue({
-                code: z.ZodIssueCode.custom,
-                message: 'invalidNumber',
-              })
-            return valueAsNumber
-          }),
-        ],
-        {
-          error: (issue) =>
-            issue.input === undefined ? 'amountRequired' : undefined,
-        },
-      )
+      .union([z.number(), z.string()], {
+        error: (issue) =>
+          issue.input === undefined ? 'amountRequired' : undefined,
+      })
+      .transform((value, ctx) => {
+        if (typeof value === 'number') return value
+        // A plain amount keeps the path it has always had: the calculator is
+        // only reached by something that looks like a calculation.
+        if (!looksLikeExpression(value)) {
+          const valueAsNumber = Number(value)
+          if (Number.isNaN(valueAsNumber)) {
+            ctx.addIssue({
+              code: z.ZodIssueCode.custom,
+              message: 'invalidNumber',
+            })
+            return z.NEVER
+          }
+          return valueAsNumber
+        }
+        const result = parseAmountExpression(value)
+        if (result.status !== 'ok') {
+          ctx.addIssue({
+            code: z.ZodIssueCode.custom,
+            message:
+              result.status === 'error' ? result.message : 'invalidExpression',
+          })
+          return z.NEVER
+        }
+        return result.value
+      })
       .refine((amount) => amount != 0, 'amountNotZero')
       .refine((amount) => amount <= 10_000_000_00, 'amountTenMillion'),
     originalAmount: z
