@@ -23,6 +23,7 @@ model Group {
   expenses     Expense[]
   activities   Activity[]
   createdAt    DateTime      @default(now())
+  closedAt     DateTime?
 }
 
 model Participant {
