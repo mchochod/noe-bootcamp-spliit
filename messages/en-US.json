@@ -465,6 +465,8 @@
     "duplicateParticipantName": "Another participant already has this name.",
     "titleRequired": "Please enter a title.",
     "invalidNumber": "Invalid number.",
+    "invalidExpression": "That calculation cannot be worked out.",
+    "divisionByZero": "Cannot divide by zero.",
     "amountRequired": "You must enter an amount.",
     "amountNotZero": "The amount must not be zero.",
     "amountTenMillion": "The amount must be lower than 10,000,000.",

@@ -62,3 +62,6 @@ AGENTS.md
 
 # playwright-mcp scratch output
 .playwright-mcp
+
+# spec-to-pr working documents
+tmp/
