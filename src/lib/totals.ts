@@ -398,3 +398,33 @@ export function getRecurringSpending(
     estimatedYearly: estimate('perYear'),
   }
 }
+
+export type BiggestExpense = {
+  id: string
+  title: string
+  amount: number
+  paidByName: string
+}
+
+/**
+ * Finds the single largest non-reimbursement expense, for the "trip wrapped"
+ * recap (issue #14). Returns `null` for a group with no qualifying expenses.
+ */
+export function getBiggestExpense(
+  expenses: NonNullable<Awaited<ReturnType<typeof getGroupExpenses>>>,
+): BiggestExpense | null {
+  let biggest: (typeof expenses)[number] | null = null
+  for (const expense of expenses) {
+    if (expense.isReimbursement) continue
+    if (!biggest || expense.amount > biggest.amount) {
+      biggest = expense
+    }
+  }
+  if (!biggest) return null
+  return {
+    id: biggest.id,
+    title: biggest.title,
+    amount: biggest.amount,
+    paidByName: biggest.paidBy.name,
+  }
+}
